@@ -1,0 +1,26 @@
+
+function one(s) {
+  const stack = [];
+  const pairs = { ')': '(', ']': '[', '}': '{' };
+
+  for (const ch of s) {
+    if ('([{'.includes(ch)) {
+      stack.push(ch);
+    } else if (')]}'.includes(ch)) {
+      if (!stack.length) return false;
+      const top = stack[stack.length - 1];
+      if (top !== pairs[ch]) return false;
+      stack.pop();
+    } else {
+      return false;
+    }
+  }
+  return stack.length === 0;
+}
+
+console.log(one("")); 
+console.log(one("()"));  
+console.log(one("()[]{}"));  
+console.log(one("(]"));
+console.log(one("([)]"));
+console.log(one("{[]}"));
